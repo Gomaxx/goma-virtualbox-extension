@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>goma-virtualbox-extension</artifactId>
+    <groupId>cc.eoma</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>goma-virtualbox-extension-server</artifactId>
+
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <!-- META-INF/MANIFEST.MF 添加 Main-Class: -->
+              <mainClass>cc.eoma.virtualbox.netty.MyNettyServer</mainClass>
+
+              <!-- META-INF/MANIFEST.MF 添加 ClassPath: 外部依赖指定  -->
+              <addClasspath>true</addClasspath>
+
+              <!-- META-INF/MANIFEST.MF : 指定依赖包所在目录前缀 -->
+              <classpathPrefix>./lib</classpathPrefix>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+
+      <!-- 自动实现将依赖拷贝到 lib 目录下，不然需要手动的执行-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-dependencies</id>
+            <phase>package</phase>
+
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+
+            <configuration>
+              <!-- ${project.build.directory} 这是项目属性，后续篇章会有讲述 -->
+              <outputDirectory>${project.build.directory}/lib</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+
+  </build>
+</project>
