@@ -13,6 +13,6 @@ client 主要是监听指定区域图标是否闪烁，判断是否有新消息�
 
 
 # 效果图如下
-![服务端](./server.png)
+![服务端](https://raw.githubusercontent.com/Gomaxx/goma-virtualbox-extension/7aaf56245fbc9d4118a7c92c922c1f3cd6ee846f/server.png)
 
-![客户端](./client.png)
+![客户端](https://raw.githubusercontent.com/Gomaxx/goma-virtualbox-extension/7aaf56245fbc9d4118a7c92c922c1f3cd6ee846f/client.png
