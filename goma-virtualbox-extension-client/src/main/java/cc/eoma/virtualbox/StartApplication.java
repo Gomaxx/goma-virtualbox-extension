@@ -12,7 +12,12 @@ import java.io.InputStreamReader;
 
 public class StartApplication {
     public static void main(String[] args) throws Exception {
-
+//        String address = System.getProperty("url");
+//        if (address == null || "".equals(address)) {
+//            System.out.print("请输入服务器IP: ");
+//            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//            address = br.readLine();
+//        }
         System.out.print("请输入服务器IP: ");
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String address = br.readLine();
@@ -22,6 +27,7 @@ public class StartApplication {
                 .group(group)
                 .channel(NioSocketChannel.class)
                 .handler(new MyChannelInitializer());  // 192.168.43.204   192.168.1.95    10.190.41.179
+        System.out.println(address);
         Channel channel = bootstrap.connect(address, 35888).sync().channel();
         System.out.print("请输入要启动监听数量: ");
         Integer count = Integer.valueOf(((char) System.in.read()) + "");
