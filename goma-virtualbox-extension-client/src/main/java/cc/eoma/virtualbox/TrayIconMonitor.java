@@ -1,9 +1,11 @@
 package cc.eoma.virtualbox;
 
+import io.netty.channel.Channel;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
-
-import io.netty.channel.Channel;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class TrayIconMonitor implements Runnable {
   private Channel channel;
@@ -19,11 +21,12 @@ public class TrayIconMonitor implements Runnable {
     int x = point.x;
     int y = point.y;
     System.out.println("开始监听（" + x + "," + y + ")");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     Integer baseRgb = this.getRgb(x, y);
     while (true) {
       int currentRgb = this.getRgb(x, y);
       if (baseRgb.compareTo(currentRgb) != 0) {
-        this.channel.writeAndFlush("new message\r\n");
+        this.channel.writeAndFlush( sdf.format(new Date())+ "new message\r\n");
       }
       if (currentRgb == -1111) {
         break;

@@ -39,7 +39,7 @@ public class MyChannelHandler extends SimpleChannelInboundHandler<String> {
   protected void channelRead0(ChannelHandlerContext ctx, String s) throws Exception {
     Channel incoming = ctx.channel();
     System.out.println(incoming.remoteAddress() + " send message: " + s);
-    this.systemNotifySend();
+    this.systemNotifySend(s);
 
     for (Channel channel : channels) {
       if (channel != incoming) {
@@ -76,11 +76,21 @@ public class MyChannelHandler extends SimpleChannelInboundHandler<String> {
   }
 
 
-  private void systemNotifySend() throws Exception {
+  private void systemNotifySend(String message) throws Exception {
+
+    String title = "goma-virtualbox-extension";
+    String content = "has new message,please to virtalobx view.";
+    if (!"".equalsIgnoreCase(message) && message.contains("###G:T###")) {
+      String[] xxx = message.split("###G:T###");
+      title = xxx[0];
+      content = xxx[1];
+    }
+
+
     List<String> cmds = new ArrayList<String>();
     cmds.add("sh");
     cmds.add("-c");
-    cmds.add("notify-send \"goma-virtualbox-extension\" \"has new message,please to virtalobx view.\"");
+    cmds.add("notify-send \"" + title + "\" \"" + content + "\"");
     ProcessBuilder pb = new ProcessBuilder(cmds);
     //    Process p = pb.start();
     pb.start();
