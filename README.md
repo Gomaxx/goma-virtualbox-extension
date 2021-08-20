@@ -1,6 +1,6 @@
 # goma-virtualbox-extension
 ## 虚拟机有消息时宿主机弹窗提示
-本人工作电脑 Ubuntu + VirtualBox（Win10），Win10中跑部分特殊软件（QQ、WeChat 等等），但是在虚拟机中收到新消息，在主机（Ubuntu）中并没有提醒，偶尔有重要通知不能及时查看，为解决该问题编写次应用。
+本人工作电脑 Ubuntu + VirtualBox（Win 7），Win10中跑部分特殊软件（QQ、WeChat 等等），但是在虚拟机中收到新消息，在主机（Ubuntu）中并没有提醒，偶尔有重要通知不能及时查看，为解决该问题编写次应用。
 
 本项目主要分为两部分：goma-virtualbox-extension-server、goma-virtualbox-extension-client
 
