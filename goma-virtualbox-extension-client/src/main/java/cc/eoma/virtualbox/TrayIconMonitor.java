@@ -8,16 +8,25 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class TrayIconMonitor implements Runnable {
-  private Channel channel;
+  private Point point;
+  private final Channel channel;
+
   public TrayIconMonitor(Channel channel) {
     this.channel = channel;
   }
 
+  public TrayIconMonitor(Channel channel, Point point) {
+    this.channel = channel;
+    this.point = point;
+  }
+
   public void run() {
-    System.out.println("请将鼠标移动到要抓取的图标位置，8秒后开始获取图标");
-    this.sleep(8000L);
-    PointerInfo pointerInfo = MouseInfo.getPointerInfo();
-    Point point = pointerInfo.getLocation();
+    if (this.point == null) {
+      System.out.println("请将鼠标移动到要抓取的图标位置，8秒后开始获取图标");
+      this.sleep(8000L);
+      PointerInfo pointerInfo = MouseInfo.getPointerInfo();
+      point = pointerInfo.getLocation();
+    }
     int x = point.x;
     int y = point.y;
     System.out.println("开始监听（" + x + "," + y + ")");
@@ -26,7 +35,7 @@ public class TrayIconMonitor implements Runnable {
     while (true) {
       int currentRgb = this.getRgb(x, y);
       if (baseRgb.compareTo(currentRgb) != 0) {
-        this.channel.writeAndFlush( sdf.format(new Date())+ "new message\r\n");
+        this.channel.writeAndFlush(sdf.format(new Date()) + "new message\r\n");
       }
       if (currentRgb == -1111) {
         break;
